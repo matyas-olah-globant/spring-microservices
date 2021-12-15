@@ -57,7 +57,7 @@ You will learn
 - Step 30 - Creating User Entity and some test data
 - Step 31 - Updating GET methods on User Resource to use JPA
 - Step 32 - Updating POST and DELETE methods on User Resource to use JPA
-- Step 33 - Creating Post Entity and Many to One Relationship with User Entity
+- Step 33 - Creating Post Entity and Many-to-One Relationship with User Entity
 - Step 34 - Implementing a GET service to retrieve all Posts of a User
 - Step 35 - Implementing a POST service to create a Post for a User
 
@@ -114,23 +114,21 @@ We will help you install
 ## Table Structure
 
 ```sql
-create table user (
-id integer not null, 
-birth_date timestamp, 
-name varchar(255), 
-primary key (id)
-);
+CREATE TABLE user (
+id INTEGER NOT NULL,
+birth_date TIMESTAMP,
+name VARCHAR(255),
+PRIMARY KEY (id));
 
-create table post (
-id integer not null, 
-description varchar(255), 
-user_id integer, 
-primary key (id)
-);
+CREATE TABLE post (
+id INTEGER NOT NULL,
+description VARCHAR(255),
+user_id INTEGER,
+PRIMARY KEY (id));
 
-alter table post 
-add constraint post_to_user_foreign_key
-foreign key (user_id) references user;
+ALTER TABLE post 
+ADD CONSTRAINT post_to_user_foreign_key
+FOREIGN KEY (user_id) REFERENCES user;
 ```
 
 ## Example Requests
@@ -174,8 +172,8 @@ foreign key (user_id) references user;
 ```
 
 ### GET http://localhost:8080/users/1000
-- Get request to a non existing resource. 
-- The response shows default error message structure auto configured by Spring Boot.
+- Get request to a non existing resource.
+- The response shows default error message structure auto-configured by Spring Boot.
 
 ```json
 {
@@ -277,13 +275,13 @@ foreign key (user_id) references user;
 
 
 ### Versioning
- - Media type versioning (a.k.a “content negotiation” or “accept header”)
+ - Media type versioning (a.k.a. “content negotiation” or “accept header”)
    - GitHub
  - (Custom) headers versioning
    - Microsoft
  - URI Versioning
    - Twitter
- - Request Parameter versioning 
+ - Request Parameter versioning
    - Amazon
  - Factors
   - URI Pollution
@@ -291,7 +289,7 @@ foreign key (user_id) references user;
   - Caching
   - Can we execute the request on the browser?
   - API Documentation
- - No Perfect Solution 
+ - No Perfect Solution
 
 #### More
 - https://www.mnot.net/blog/2011/10/25/web_api_versioning_smackdown
@@ -302,18 +300,16 @@ foreign key (user_id) references user;
 
 ## Resources and URI Mappings
 
-- Retrieve all Users      - GET  /users
-- Create a User           - POST /users
-- Retrieve one User       - GET  /users/{id} -> /users/1   
-- Delete a User           - DELETE /users/{id} -> /users/1
+- Retrieve all Users            - GET    /users
+- Create a User                 - POST   /users
+- Retrieve one User             - GET    /users/{id} -> /users/1
+- Delete a User                 - DELETE /users/{id} -> /users/1
 
-- Retrieve all posts for a User - GET /users/{id}/posts 
-- Create a posts for a User - POST /users/{id}/posts
-- Retrieve details of a post - GET /users/{id}/posts/{post_id}
-
+- Retrieve all posts for a User - GET    /users/{id}/posts
+- Create a posts for a User     - POST   /users/{id}/posts
+- Retrieve details of a post    - GET    /users/{id}/posts/{post_id}
 
 ## Complete Code Example
-
 
 ### /pom.xml
 
